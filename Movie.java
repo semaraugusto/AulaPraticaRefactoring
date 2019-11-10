@@ -1,26 +1,45 @@
 public class Movie {
+	public static final int  CHILDRENS = 2;
+	public static final int  REGULAR = 0;
+	public static final int  NEW_RELEASE = 1;
 
-  public static final int  CHILDRENS = 2;
-  public static final int  REGULAR = 0;
-  public static final int  NEW_RELEASE = 1;
+	private String _title;
+	private Price _price;
 
-  private String _title;
-  private int _priceCode;
+	public Movie(String name, int priceCode) {
+		_title = name;
+		setPriceCode(priceCode);
+	}
 
-  public Movie(String title, int priceCode) {
-      _title = title;
-      _priceCode = priceCode;
-  }
+	public int getPriceCode() {
+		return _price.getPriceCode();
+	}
 
-  public int getPriceCode() {
-      return _priceCode;
-  }
+	public void setPriceCode(int arg) {
+		switch (arg) {
+			case REGULAR:
+				_price = new RegularPrice();
+				break;
+			case CHILDRENS:
+				_price = new ChildrensPrice();
+				break;
+			case NEW_RELEASE:
+				_price = new NewReleasePrice();
+				break;
+			default:
+				throw new IllegalArgumentException("Incorrect Price Code");
+		}
+	}
 
-  public void setPriceCode(int arg) {
-     _priceCode = arg;
-  }
+	public String getTitle (){
+		return _title;
+	};
 
-  public String getTitle (){
-      return _title;
-  };
+	double getCharge(int daysRented) {
+		return _price.getCharge(daysRented);
+	}
+
+	int getFrequentRenterPoints(int daysRented) {
+		return _price.getFrequentRenterPoints(daysRented);
+	}
 }
